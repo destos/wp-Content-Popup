@@ -18,8 +18,6 @@ define( PF_CP_URL, plugin_dir_url( __FILE__ ) );
 
 class PF_Content_Popup{
 
-	private $op;
-
 	private static $regd_popups;
 	
 	private $popups;
@@ -50,7 +48,8 @@ class PF_Content_Popup{
 	function do_shortcode( $attrs, $content ){
 
 		$op = (object) shortcode_atts(array(
-				'link' => 'View Popup.'
+				'link' => 'View Popup.',
+				'kind' => 'fancybox'
 			), $attrs );
 			
 		$this->popups++;
@@ -58,7 +57,7 @@ class PF_Content_Popup{
 		// store content of popups
 		$this->regd_popups['popup-'.$this->popups] = $content;
 		
-		return "<a data-popup=\"popup-{$this->popups}\" href=\"#\">{$op->link}</a>";
+		return "<a data-popup=\"popup-{$this->popups}\" data-kind=\"{$op->kind}\" href=\"#\">{$op->link}</a><div class=\"visuallyHidden\">{$content}</div>";
 
 	}
 	
